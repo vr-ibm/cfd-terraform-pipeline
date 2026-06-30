@@ -1,0 +1,115 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+scale   1;
+
+// NACA 0012 airfoil - simplified C-mesh topology
+// Chord length = 1, domain extends 20 chords in each direction
+
+vertices
+(
+    // Trailing edge and wake
+    ( 1.0    0.0     -0.5)   // 0 - trailing edge bottom
+    ( 1.0    0.0      0.5)   // 1 - trailing edge top
+    (20.0    0.0     -0.5)   // 2 - outlet bottom
+    (20.0    0.0      0.5)   // 3 - outlet top
+    (20.0   20.0     -0.5)   // 4 - far field top-right bottom
+    (20.0   20.0      0.5)   // 5 - far field top-right top
+    ( 1.0   20.0     -0.5)   // 6 - far field top-left bottom
+    ( 1.0   20.0      0.5)   // 7 - far field top-left top
+    (-20.0  20.0     -0.5)   // 8 - far field inlet-top bottom
+    (-20.0  20.0      0.5)   // 9 - far field inlet-top top
+    (-20.0   0.0     -0.5)   // 10 - inlet bottom
+    (-20.0   0.0      0.5)   // 11 - inlet top
+    (-20.0 -20.0     -0.5)   // 12 - far field inlet-bottom bottom
+    (-20.0 -20.0      0.5)   // 13 - far field inlet-bottom top
+    ( 1.0  -20.0     -0.5)   // 14 - far field bottom-left bottom
+    ( 1.0  -20.0      0.5)   // 15 - far field bottom-left top
+    (20.0  -20.0     -0.5)   // 16 - far field bottom-right bottom
+    (20.0  -20.0      0.5)   // 17 - far field bottom-right top
+);
+
+blocks
+(
+    // Main block around airfoil wake region
+    hex (0 2 4 6 1 3 5 7) (50 50 1) simpleGrading (5 5 1)
+    hex (0 6 8 10 1 7 9 11) (50 50 1) simpleGrading (1 5 1)
+    hex (0 10 12 14 1 11 13 15) (50 50 1) simpleGrading (1 5 1)
+    hex (0 14 16 2 1 15 17 3) (50 50 1) simpleGrading (5 5 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (10 11 9 8)
+            (12 13 11 10)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (2 3 5 4)
+            (16 17 3 2)
+        );
+    }
+    top
+    {
+        type patch;
+        faces
+        (
+            (6 7 5 4)
+            (8 9 7 6)
+        );
+    }
+    bottom
+    {
+        type patch;
+        faces
+        (
+            (14 15 13 12)
+            (16 17 15 14)
+        );
+    }
+    airfoil
+    {
+        type wall;
+        faces
+        (
+            (0 1 1 0)
+        );
+    }
+    frontAndBack
+    {
+        type empty;
+        faces
+        (
+            (0 2 4 6)
+            (0 6 8 10)
+            (0 10 12 14)
+            (0 14 16 2)
+            (1 3 5 7)
+            (1 7 9 11)
+            (1 11 13 15)
+            (1 15 17 3)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
