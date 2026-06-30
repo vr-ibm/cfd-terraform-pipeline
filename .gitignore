@@ -1,7 +1,18 @@
-terraform/.terraform/
-terraform/*.tfstate*
-terraform/.terraform.lock.hcl
-results/
-*.pyc
+CFD output
+data/output/
+data/results.csv
+.DS_Store
+
+# Python
 __pycache__/
-.env
+*.pyc
+.venv/
+
+# Terraform
+terraform/.terraform/
+terraform/.tfstate
+terraform/.tfstate.backup
+terraform/*.tfplan
+
+# Docker
+*.tar
