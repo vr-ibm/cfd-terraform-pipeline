@@ -1,15 +1,14 @@
 # variables.tf - input variable definitions
 
 variable "project_id" {
-  description = "GCP project ID to deploy into"
   type        = string
-  default     = null
+  description = "GCP project ID"
 }
 
 variable "region" {
-  description = "GCP region for resources"
   type        = string
   default     = "us-central1"
+  description = "GCP region"
 }
 
 variable "zone" {

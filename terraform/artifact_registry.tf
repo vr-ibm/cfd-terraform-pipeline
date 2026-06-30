@@ -1,9 +1,9 @@
 # artifact_registry.tf - Artifact Registry resources
 
 resource "google_artifact_registry_repository" "cfd" {
+  project       = var.project_id
   location      = var.region
-  repository_id = "cfd-openfoam"
-  description   = "Docker repository for OpenFOAM CFD containers"
+  repository_id = "cfd-images"
   format        = "DOCKER"
 
   depends_on = [google_project_service.required["artifactregistry.googleapis.com"]]

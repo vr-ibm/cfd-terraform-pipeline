@@ -1,5 +1,13 @@
 # storage.tf - storage resources
 
+resource "google_storage_bucket" "cfd_results" {
+  project                     = var.project_id
+  name                        = "${var.project_id}-cfd-results"
+  location                    = var.region
+  force_destroy               = true
+  uniform_bucket_level_access = true
+}
+
 resource "google_storage_bucket" "input" {
   name                        = "${var.project_id}-cfd-input"
   location                    = var.region
