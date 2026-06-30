@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """Post-process CFD results from output directories into a CSV."""
+import csv
 import json
 import os
-import sys
-import csv
+
 
 def main():
     output_dir = os.environ.get("OUTPUT_DIR", "data/output")
     results_csv = os.environ.get("RESULTS_CSV", "data/results.csv")
 
-    print(f"Local CFD Post-Processor")
+    print("Local CFD Post-Processor")
     print(f"  Output dir: {os.path.abspath(output_dir)}")
     print(f"  Results CSV: {os.path.abspath(results_csv)}")
     print()
 
-    fields = ["case_name", "airfoil", "aoa", "reynolds", "mach", 
-              "cl", "cd", "cm", "iterations", "wall_time_seconds", 
+    fields = ["case_name", "airfoil", "aoa", "reynolds", "mach",
+              "cl", "cd", "cm", "iterations", "wall_time_seconds",
               "converged", "timestamp", "machine_type"]
 
     rows = []
@@ -29,7 +29,6 @@ def main():
         print(f"    Cl={data.get('cl')}, Cd={data.get('cd')}, Cm={data.get('cm')}")
         rows.append(data)
 
-    # Sort by AoA
     rows.sort(key=lambda r: r.get("aoa", 0))
 
     os.makedirs(os.path.dirname(results_csv), exist_ok=True)
@@ -40,6 +39,7 @@ def main():
 
     print(f"\n  Results written to: {os.path.abspath(results_csv)}")
     print(f"  Total cases: {len(rows)}")
+
 
 if __name__ == "__main__":
     main()

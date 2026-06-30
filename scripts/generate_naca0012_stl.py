@@ -17,6 +17,7 @@ def naca0012_points(num_points=100):
         points_lower.append((x, -yt))
     return points_upper, points_lower
 
+
 def write_stl(filename, upper, lower, span=0.1):
     triangles = []
     n = len(upper)
