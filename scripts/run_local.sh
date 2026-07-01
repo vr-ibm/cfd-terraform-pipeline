@@ -49,6 +49,13 @@ declare -a CASES=(
     "naca0012_aoa8:naca0012:8:3000000:0.15"
     "naca0012_aoa10:naca0012:10:3000000:0.15"
     "naca0012_aoa12:naca0012:12:3000000:0.15"
+    "naca2412_aoa0:naca2412:0:3000000:0.15"
+    "naca2412_aoa2:naca2412:2:3000000:0.15"
+    "naca2412_aoa4:naca2412:4:3000000:0.15"
+    "naca2412_aoa6:naca2412:6:3000000:0.15"
+    "naca2412_aoa8:naca2412:8:3000000:0.15"
+    "naca2412_aoa10:naca2412:10:3000000:0.15"
+    "naca2412_aoa12:naca2412:12:3000000:0.15"
 )
 
 # Run simulations
