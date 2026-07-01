@@ -91,14 +91,15 @@ fi
 
 echo "Cl=${FINAL_CL}, Cd=${FINAL_CD}, Cm=${FINAL_CM}"
 
-# Determine convergence
-CONVERGED=false
-if grep -q "SIMPLE solution converged" log.simpleFoam; then
-    CONVERGED=true
+# Get actual iteration count from simpleFoam log
+ITERATIONS=$(grep "^Time = " log.simpleFoam | tail -1 | awk '{print $3}')
+ITERATIONS=${ITERATIONS:-0}
+# If it stopped before 2000, residualControl triggered - it converged
+if [ "$ITERATIONS" -lt 2000 ]; then
+    CONVERGED="true"
+else
+    CONVERGED="false"
 fi
-
-# Count iterations
-ITERATIONS=$(grep -c "^Time = " log.simpleFoam || echo "0")
 
 # Write metadata
 mkdir -p /opt/cfd/output

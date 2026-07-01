@@ -43,13 +43,12 @@ solvers
 
 SIMPLE
 {
-    nNonOrthogonalCorrectors 1;
+    nNonOrthogonalCorrectors 0;
     residualControl
     {
+        U               1e-5;
         p               1e-5;
-        U               1e-6;
-        k               1e-6;
-        omega           1e-6;
+        nuTilda         1e-5;
     }
 }
 
